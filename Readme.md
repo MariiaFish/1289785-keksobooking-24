@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Мария Панежина](https://up.htmlacademy.ru/javascript/24/user/1289785).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
 
 ---
 
