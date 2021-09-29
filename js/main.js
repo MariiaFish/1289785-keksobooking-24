@@ -1,23 +1,18 @@
-const getRundomIntNumber = (min, max) => Math.round(Math.random() * (max - min) + min);
-
-//пробовала ввести значение max меньше чем min и результат все равно вернул числа из диапозона min max
-// вопрос, это какая-то особенность? Нужно ли страховаться и вносить условие при котором max и min будут меняться местами?
-
-
-const getRandomNumber = (min, max, pointPlace) => {
-  if (max < min) {
-    const temporary = min;
-    min = max;
-    max = temporary;
+const getRundomIntNumber = (min, max) => {
+  if (max > min && min >= 0 && max > 0) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
-  let number = Number((Math.random() * (max - min + 1) + min).toFixed(pointPlace));
-  if (number < 0) {
-    number = number * (-1);
-  }
-
-  return number;
+  throw new RangeError(
+    'Ошибочные значения диапазона: первое значение должно быть меньше второго, а также диапазон может быть только положительный, включая ноль');
 };
 
-getRandomNumber(-4, 5, 5);
+const getRandomNumber = (min, max, pointPlace) => {
+  if (max > min && min >= 0 && max > 0) {
+    return Number((Math.random() * (max - min) + min).toFixed(pointPlace));
+  }
+  throw new RangeError(
+    'Ошибочные значения диапазона: первое значение должно быть меньше второго, а также диапазон может быть только положительный, включая ноль');
+};
+
+getRandomNumber(3.1, 3.2, 5);
 getRundomIntNumber(5, 10);
