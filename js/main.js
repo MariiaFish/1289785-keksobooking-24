@@ -40,23 +40,14 @@ const getRandomArrayLength = (array, minValue) => {
   return newArray;
 };
 
-const getAvatarAddress = () => {
-  for (let iteration = avatarNumber + 1; iteration <= 10; iteration++) {
-    avatarNumber++;
-    return avatarNumber > 9
-      ? `img/avatars/user${avatarNumber}.png`
-      : `img/avatars/user0${avatarNumber}.png`;
-  }
-};
-
 const getOfferAddress = (object) =>
   object.offer.address = `${object.location.lat.toString()}, ${object.location.lng.toString()}`;
 
 const getAd = () => {
-  let ad = {};
-  ad = {
+  avatarNumber++;
+  const ad = {
     author: {
-      avatar: getAvatarAddress(),
+      avatar: '',
     },
     offer: {
       title: getRandomArrayElement(TITLES, MIN),
@@ -77,9 +68,11 @@ const getAd = () => {
     },
   };
   getOfferAddress(ad);
+  avatarNumber > 9
+    ? (ad.author.avatar = `img/avatars/user${avatarNumber}.png`)
+    : (ad.author.avatar = `img/avatars/user0${avatarNumber}.png`);
   return ad;
 };
-
 
 const genArraay = () => Array.from({length: 10}, getAd);
 
