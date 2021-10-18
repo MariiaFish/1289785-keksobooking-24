@@ -3,6 +3,8 @@ import {getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRand
 const MIN = 0;
 const MIN_ARRAY_LENGTH = 1;
 const MAX = 1000000;
+const MAX_ROOMS = 100;
+const MAX_GUESTS = 100;
 const LAT_MIN = 35.65000;
 const LAT_MAX = 35.70000;
 const LNG_MIN = 139.70000;
@@ -16,24 +18,34 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const DESCRIPTIONS = ['Это именно то, что тебе нужно', 'Подходит только для богатых богачей', 'Здесь сбываются мечты', 'Идеально для вечеринок после сдачи сессии', 'Уютно и тепло как у мамы дома', 'Очень близко к звездам', 'Просто взгляните на эти фотки', 'Свежий запах моря'];
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 
-let avatarNumber = 0;
+
+const getAvatarAddress = () => {
+  let avatarNumber = 0;
+  return function () {
+    avatarNumber++;
+    return avatarNumber > 9
+      ? `img/avatars/user${avatarNumber}.png`
+      : `img/avatars/user0${avatarNumber}.png`;
+  };
+};
+
+const avatarAddress = getAvatarAddress();
 
 const getOfferAddress = (object) =>
   object.offer.address = `${object.location.lat.toString()}, ${object.location.lng.toString()}`;
 
 const getAd = () => {
-  avatarNumber++;
   const ad = {
     author: {
-      avatar: '',
+      avatar: avatarAddress(),
     },
     offer: {
       title: getRandomArrayElement(TITLES, MIN),
       address: '',
       price: getRundomIntNumber(MIN, MAX),
       type: getRandomArrayElement(TYPES, MIN),
-      rooms: getRundomIntNumber(MIN, MAX),
-      guests: getRundomIntNumber(MIN, MAX),
+      rooms: getRundomIntNumber(MIN, MAX_ROOMS),
+      guests: getRundomIntNumber(MIN, MAX_GUESTS),
       checkin: getRandomArrayElement(TIME_POINTS, MIN),
       checkout: getRandomArrayElement(TIME_POINTS, MIN),
       features: getRandomArrayLength(FEATURES, MIN_ARRAY_LENGTH),
@@ -46,9 +58,6 @@ const getAd = () => {
     },
   };
   getOfferAddress(ad);
-  avatarNumber > 9
-    ? (ad.author.avatar = `img/avatars/user${avatarNumber}.png`)
-    : (ad.author.avatar = `img/avatars/user0${avatarNumber}.png`);
   return ad;
 };
 
