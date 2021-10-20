@@ -1,3 +1,11 @@
+const TRIGGER_VALUE_FIRST = 1;
+const TRIGGER_VALUE_SECOND = 4;
+const TRIGGER_VALUE_THIRD = 20;
+const NO_REST = 0;
+const MIN_REST = 1;
+const TRIGGER_DIVIDER = 10;
+
+
 const getRundomIntNumber = (first, second) => {
   const lower = Math.ceil(Math.min(Math.abs(first), Math.abs(second)));
   const upper = Math.floor(Math.max(Math.abs(first), Math.abs(second)));
@@ -22,4 +30,43 @@ const getRandomArrayLength = (array, minValue) => {
   return newArray;
 };
 
-export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength };
+const renderRoom = (num) => {
+  let roomValue = 'комната';
+  if (num > TRIGGER_VALUE_FIRST && num <= TRIGGER_VALUE_SECOND) {
+    roomValue = 'комнаты';
+  }
+
+  if (num > TRIGGER_VALUE_SECOND && num <= TRIGGER_VALUE_THIRD) {
+    roomValue = 'комнат';
+  }
+
+  if (num >= TRIGGER_VALUE_THIRD) {
+    if (
+      num % TRIGGER_DIVIDER > TRIGGER_VALUE_FIRST &&
+      num % TRIGGER_DIVIDER <= TRIGGER_VALUE_SECOND
+    ) {
+      roomValue = 'комнаты';
+    }
+
+    if (
+      num % TRIGGER_DIVIDER > TRIGGER_VALUE_SECOND ||
+      num % TRIGGER_DIVIDER === NO_REST
+    ) {
+      roomValue = 'комнат';
+    }
+  }
+  return roomValue;
+};
+
+const renderGuest = (num) => {
+  let guestValue = 'гостя';
+  if (num > TRIGGER_VALUE_FIRST) {
+    guestValue = 'гостей';
+  }
+  if (num > TRIGGER_VALUE_THIRD && num % TRIGGER_DIVIDER === MIN_REST) {
+    guestValue = 'гостя';
+  }
+  return guestValue;
+};
+
+export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom };

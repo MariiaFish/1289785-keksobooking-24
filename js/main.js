@@ -1,3 +1,4 @@
-import {similarAds, mapCanvas} from './similarAds.js';
+import { createSimilarAds, mapCanvas, adsArray } from './similarAds.js';
 
-mapCanvas.appendChild(similarAds[0]);
+const newPopups = createSimilarAds(adsArray);
+mapCanvas.appendChild(newPopups[6]);
