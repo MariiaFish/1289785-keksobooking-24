@@ -1,5 +1,4 @@
-import {getAd} from './ad.js';
+import { createSimilarAds, mapCanvas, adsArray } from './similarAds.js';
 
-const genArraay = () => Array.from({length: 10}, getAd);
-
-genArraay();
+const newPopups = createSimilarAds(adsArray);
+mapCanvas.appendChild(newPopups[6]);
