@@ -69,4 +69,26 @@ const renderGuest = (num) => {
   return guestValue;
 };
 
-export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom };
+const addClass = (element, className) => {
+  element.classList.toggle(className);
+};
+
+const removeClass = (element, className) => {
+  element.classList.remove(className);
+};
+
+const addAttributeDisabled = (form) => {
+  const elementCollection = form.children;
+  for (const element of elementCollection) {
+    element.disabled = true;
+  }
+};
+
+const removeAttributeDisabled = (form) => {
+  const elementCollection = form.children;
+  for (const element of elementCollection) {
+    element.disabled = false;
+  }
+};
+
+export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom, addClass, removeClass, addAttributeDisabled, removeAttributeDisabled};
