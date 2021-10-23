@@ -1,7 +1,8 @@
 import { createSimilarAds, mapCanvas, adsArray } from './similarAds.js';
-import {setInactiveState, mapFilters, adForm} from './inactive-state.js';
-import {setActiveState} from './active-state.js';
+import {setActiveState, setInactiveState} from './setting-element-state.js';
 
+const adForm = document.querySelector('.ad-form');
+const mapFilters = document.querySelector('.map__filters');
 const newPopups = createSimilarAds(adsArray);
 mapCanvas.appendChild(newPopups[6]);
 
