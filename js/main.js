@@ -1,6 +1,6 @@
 import { createSimilarAds, mapCanvas, adsArray } from './similarAds.js';
 import {setActiveState, setInactiveState} from './setting-element-state.js';
-import {adForm, roomNumber, validationRoomAndCapacity} from './form-validation.js';
+import {adForm} from './form-validation.js';
 
 const mapFilters = document.querySelector('.map__filters');
 const newPopups = createSimilarAds(adsArray);
@@ -11,7 +11,3 @@ setInactiveState(mapFilters);
 
 setActiveState(adForm);
 setActiveState(mapFilters);
-
-roomNumber.addEventListener('change', (evt) => {
-  validationRoomAndCapacity(evt);
-});
