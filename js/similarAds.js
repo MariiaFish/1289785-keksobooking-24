@@ -85,4 +85,4 @@ const createSimilarAds = (dataArr) => {
   return similarAds;
 };
 
-export { createSimilarAds, mapCanvas, adsArray };
+export { createSimilarAds, mapCanvas, adsArray, renderNewPopup, createNewPoup };

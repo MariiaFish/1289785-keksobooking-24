@@ -91,4 +91,10 @@ const removeAttributeDisabled = (form) => {
   }
 };
 
-export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom, addClass, removeClass, addAttributeDisabled, removeAttributeDisabled};
+const addToMap = (map, element) => {
+  element.addTo(map);
+};
+
+const getAddressCoordinate = (coordinatesObj) => `${coordinatesObj.lat}, ${coordinatesObj.lng}`;
+
+export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom, addClass, removeClass, addAttributeDisabled, removeAttributeDisabled, addToMap, getAddressCoordinate};
