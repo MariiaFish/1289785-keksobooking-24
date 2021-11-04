@@ -1,7 +1,6 @@
 import {renderMap} from './map.js';
-import {setInactiveState} from './setting-element-state.js';
+import { setInactiveState, mapAdditions } from './setting-element-state.js';
 import { validationRoomAndCapacity, roomNumber, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute} from './form-validation.js';
-import {mapAdditions} from './setting-element-state.js';
 
 setInactiveState(mapAdditions);
 

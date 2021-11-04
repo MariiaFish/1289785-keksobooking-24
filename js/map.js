@@ -1,6 +1,5 @@
-import { setActiveState } from './setting-element-state.js';
+import { setActiveState, mapAdditions } from './setting-element-state.js';
 import {addToMap, getAddressCoordinate} from './util.js';
-import {mapAdditions} from './setting-element-state.js';
 import {mainMarker, createGroupOfMarker} from './markers.js';
 import {adForm} from './form-validation.js';
 import { adsArray } from './similarAds.js';
@@ -40,4 +39,4 @@ const renderMap = () => {
   addToMap(mapCanvas, createGroupOfMarker(adsArray));
 };
 
-export {renderMap };
+export {renderMap};

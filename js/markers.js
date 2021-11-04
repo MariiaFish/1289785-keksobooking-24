@@ -1,5 +1,4 @@
-// import { adsArray } from './similarAds.js';
-import {renderNewPopup, createNewPoup} from './similarAds.js';
+import {createNewPoup} from './similarAds.js';
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -19,7 +18,6 @@ const mainMarker = L.marker(
 );
 
 const createGroupOfMarker = (points) => {
-  const newPopup = createNewPoup();
   const markerGroup = L.layerGroup();
   points.forEach((point) => {
     const { location: { lat, lng }} = point;
@@ -39,7 +37,7 @@ const createGroupOfMarker = (points) => {
     );
     marker
       .addTo(markerGroup)
-      .bindPopup(renderNewPopup(newPopup, point));
+      .bindPopup(createNewPoup(point));
   });
   return markerGroup;
 };
