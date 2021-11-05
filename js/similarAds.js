@@ -14,9 +14,6 @@ const APPARTMENTS_TYPE = {
   hotel: 'Отель',
 };
 
-const map = document.querySelector('.map');
-const mapCanvas = map.querySelector('.map__canvas');
-
 const genArraay = () => Array.from({ length: NEW_ARRAY_LENGTH }, getAd);
 const adsArray = genArraay();
 
@@ -46,15 +43,11 @@ const renderPhotos = (photoArray, photosContainer) => {
   }
 };
 
-const createNewPoup = () => {
+const createNewPoup = (dataObj) => {
   const cardTemplate = document.querySelector('#card').content;
   const popup = cardTemplate.querySelector('.popup');
   const newPopup = popup.cloneNode(true);
 
-  return newPopup;
-};
-
-const renderNewPopup = (newPopup, dataObj) => {
   const {offer: {features, photos, title, address, price, type, rooms, guests, checkin, checkout, description}, author: {avatar}} = dataObj;
   const featuresContainer = newPopup.querySelector('.popup__features');
   const featutesList = featuresContainer.querySelectorAll('.popup__feature');
@@ -71,18 +64,8 @@ const renderNewPopup = (newPopup, dataObj) => {
   newPopup.querySelector('.popup__avatar').src = avatar;
   renderFeature(featutesList, featuresModifiers);
   renderPhotos(photosList, photosContainer);
-
   return newPopup;
 };
 
-const createSimilarAds = (dataArr) => {
-  const similarAds = [];
-  dataArr.forEach((dataArrElement) => {
-    const newCard = createNewPoup();
-    const newAd = renderNewPopup(newCard, dataArrElement);
-    similarAds.push(newAd);
-  });
-  return similarAds;
-};
 
-export { createSimilarAds, mapCanvas, adsArray };
+export { adsArray, createNewPoup };
