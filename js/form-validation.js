@@ -7,6 +7,7 @@ const type = adForm.querySelector('#type');
 const price = adForm.querySelector('#price');
 const timein = adForm.querySelector('#timein');
 const timeout = adForm.querySelector('#timeout');
+const address = adForm.querySelector('#address');
 
 const capacityTypes = {
   1: ['для 1 гостя'],
@@ -64,4 +65,4 @@ const moveSelectedAttribute = (evt, selectedMovedElement) => {
   }
 };
 
-export { adForm, validationRoomAndCapacity, roomNumber, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute};
+export { adForm, validationRoomAndCapacity, roomNumber, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute, address};

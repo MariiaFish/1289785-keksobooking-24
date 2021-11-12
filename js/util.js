@@ -4,6 +4,7 @@ const TRIGGER_VALUE_THIRD = 20;
 const NO_REST = 0;
 const MIN_REST = 1;
 const TRIGGER_DIVIDER = 10;
+const ALERT_SHOW_TIME = 6000;
 
 
 const getRundomIntNumber = (first, second) => {
@@ -97,4 +98,60 @@ const addToMap = (map, element) => {
 
 const getAddressCoordinate = (coordinatesObj) => `${coordinatesObj.lat}, ${coordinatesObj.lng}`;
 
-export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom, addClass, removeClass, addAttributeDisabled, removeAttributeDisabled, addToMap, getAddressCoordinate};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const resetForm = (form) => {
+  form.reset();
+};
+
+// const resetAddressValue = (addressInput, coordinateObj) => {
+//   const initialAddress = getAddressCoordinate(coordinateObj);
+//   addressInput.value = initialAddress;
+// };
+
+const backMarkerToOriginal = (addressInput, marker, coordinateObj) => {
+  marker.setLatLng({
+    lat: coordinateObj.lat,
+    lng: coordinateObj.lng,
+  });
+  // resetAddressValue(addressInput, coordinateObj);
+};
+
+const closeOnClick = (clickElement, closedElement) => {
+  clickElement.addEventListener('click', () => {
+    closedElement.classList.add('hidden');
+  });
+};
+
+const closeOnEsc = (closedElement) => {
+  window.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closedElement.classList.add('hidden');
+    }
+  });
+};
+
+const removeMarkers = (map, markersGroup) => {
+  markersGroup.remove(map);
+};
+
+export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom, addClass, removeClass, addAttributeDisabled, removeAttributeDisabled, addToMap, getAddressCoordinate, showAlert, resetForm, backMarkerToOriginal, closeOnClick, closeOnEsc, removeMarkers};

@@ -1,23 +1,7 @@
-import {renderMap} from './map.js';
-import { setInactiveState, mapAdditions } from './setting-element-state.js';
-import { validationRoomAndCapacity, roomNumber, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute} from './form-validation.js';
+import { setInactiveStateForm, mapAdditions } from './form-mode.js';
 
-setInactiveState(mapAdditions);
+import {activatePage} from './page-mode.js';
 
-roomNumber.addEventListener('change', (evt) => {
-  validationRoomAndCapacity(evt);
-});
 
-type.addEventListener('change', (evt) => {
-  changeMinAndPlaceholder(evt, price);
-});
-
-timein.addEventListener('change', (evt) => {
-  moveSelectedAttribute(evt, timeout);
-});
-
-timeout.addEventListener('change', (evt) => {
-  moveSelectedAttribute(evt, timein);
-});
-
-renderMap();
+setInactiveStateForm(mapAdditions);
+activatePage();
