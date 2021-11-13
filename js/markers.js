@@ -1,4 +1,4 @@
-import {createNewPoup} from './similarAds.js';
+import {createNewPoup} from './ad-popup.js';
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -42,4 +42,8 @@ const createGroupOfMarker = (points) => {
   return markerGroup;
 };
 
-export { mainMarker, createGroupOfMarker };
+const removeMarkers = (map, group) => {
+  group.remove(map);
+};
+
+export { mainMarker, createGroupOfMarker, removeMarkers };

@@ -1,15 +1,9 @@
-import { setActiveState, mapAdditions } from './setting-element-state.js';
-import {addToMap, getAddressCoordinate} from './util.js';
-import {mainMarker, createGroupOfMarker} from './markers.js';
-import {adForm} from './form-validation.js';
-import { adsArray } from './similarAds.js';
+import { setActiveStateForm, mapAdditions } from './form-mode.js';
 
 const tokyoCoordinate = {
   lat: 35.6895,
   lng: 139.69171,
 };
-
-const address = adForm.querySelector('#address');
 
 const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
@@ -19,24 +13,12 @@ const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.pn
 const createMap = () => {
   const map = L.map('map-canvas')
     .on('load', () => {
-      setActiveState(mapAdditions);
+      setActiveStateForm(mapAdditions);
     })
     .setView(
       tokyoCoordinate,
       10);
-  address.value = getAddressCoordinate(tokyoCoordinate);
   return map;
 };
 
-const renderMap = () => {
-  const mapCanvas = createMap();
-  addToMap(mapCanvas, tileLayer);
-  addToMap(mapCanvas, mainMarker);
-  mainMarker.on('moveend', (evt) => {
-    const coordinatesObj = evt.target.getLatLng();
-    address.value = getAddressCoordinate(coordinatesObj);
-  });
-  addToMap(mapCanvas, createGroupOfMarker(adsArray));
-};
-
-export {renderMap};
+export { tokyoCoordinate, createMap, tileLayer };
