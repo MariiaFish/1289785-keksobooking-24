@@ -1,5 +1,7 @@
 import {createNewPoup} from './ad-popup.js';
 
+const MAX_ADS_COUNT = 10;
+
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -46,4 +48,9 @@ const removeMarkers = (map, group) => {
   group.remove(map);
 };
 
-export { mainMarker, createGroupOfMarker, removeMarkers };
+const getMarkersGroup = (adsArr) => {
+  const markersGroup = createGroupOfMarker(adsArr.slice(0, MAX_ADS_COUNT));
+  return markersGroup;
+};
+
+export { mainMarker, removeMarkers, getMarkersGroup };

@@ -8,8 +8,8 @@ const renderMap = () => {
   addToMap(mapCanvas, tileLayer);
   addToMap(mapCanvas, mainMarker);
   mainMarker.on('moveend', (evt) => {
-    const coordinatesObj = evt.target.getLatLng();
-    address.value = getAddressCoordinate(coordinatesObj);
+    const coordinates = evt.target.getLatLng();
+    address.value = getAddressCoordinate(coordinates);
   });
   return mapCanvas;
 };
