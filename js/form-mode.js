@@ -1,16 +1,26 @@
 import {removeClass, removeAttributeDisabled, addClass, addAttributeDisabled} from './util.js';
-import { adForm, validationRoomAndCapacity, roomNumber, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute} from './form-validation.js';
+import { capacity, roomNumber, adForm, validationRoomAndCapacity, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute} from './form-validation.js';
 import {sendData} from './api.js';
-import {enableErrorMessage} from './message-mode.js';
+import {setErrorMessage} from './message-mode.js';
 import {resetPage} from './page-mode.js';
+
+const INITIAL_CAPACITY_VALUE = 1;
+const INITIAL_PRICE_PLACEHOLDER_VALUE = 1000;
+const INITIAL_PRICE_MIN_VALUE = 1000;
 
 const mapFilters = document.querySelector('.map__filters');
 const mapAdditions = [mapFilters, adForm];
 const bodyElement = document.querySelector('body');
-const errorMessageTemplate = document.querySelector('#error').content;
-const errorMessage = errorMessageTemplate.querySelector('.error');
+
+const resetForm = (form) => {
+  form.reset();
+  capacity.value = INITIAL_CAPACITY_VALUE;
+  price.placeholder = INITIAL_PRICE_PLACEHOLDER_VALUE;
+  price.min = INITIAL_PRICE_MIN_VALUE;
+};
 
 const addListenersToForm = () => {
+
   roomNumber.addEventListener('change', (evt) => {
     validationRoomAndCapacity(evt);
   });
@@ -49,16 +59,17 @@ const setSubmitAdForm = (onSuccess) => {
 
     sendData(
       () => onSuccess(),
-      () => enableErrorMessage(errorMessage, bodyElement),
+      () => setErrorMessage(),
       new FormData(evt.target),
     );
   });
 };
 
 const setResetButtom = (button) => {
-  button.addEventListener('click', () => {
+  button.addEventListener('click', (evt) => {
+    evt.preventDefault();
     resetPage();
   });
 };
 
-export { setActiveStateForm, setInactiveStateForm, mapAdditions, setSubmitAdForm, bodyElement, setResetButtom };
+export { resetForm, setActiveStateForm, setInactiveStateForm, mapAdditions, setSubmitAdForm, bodyElement, setResetButtom};

@@ -65,4 +65,4 @@ const moveSelectedAttribute = (evt, selectedMovedElement) => {
   }
 };
 
-export { adForm, validationRoomAndCapacity, roomNumber, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute, address};
+export { roomNumber, capacity, adForm, validationRoomAndCapacity, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute, address};

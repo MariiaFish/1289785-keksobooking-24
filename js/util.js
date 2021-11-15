@@ -5,31 +5,7 @@ const NO_REST = 0;
 const MIN_REST = 1;
 const TRIGGER_DIVIDER = 10;
 const ALERT_SHOW_TIME = 6000;
-
-
-const getRundomIntNumber = (first, second) => {
-  const lower = Math.ceil(Math.min(Math.abs(first), Math.abs(second)));
-  const upper = Math.floor(Math.max(Math.abs(first), Math.abs(second)));
-  return Math.floor(Math.random() * (upper - lower + 1) + lower);
-};
-
-const getRandomFloatNumber = (first, second, pointPlace) => {
-  const lower = Math.ceil(Math.min(Math.abs(first), Math.abs(second)));
-  const upper = Math.floor(Math.max(Math.abs(first), Math.abs(second)));
-  return Number((Math.random() * (upper - lower) + lower).toFixed(pointPlace));
-};
-
-const getRandomArrayElement = (array, minValue) => {
-  const elementIndex = getRundomIntNumber(minValue, array.length - 1);
-  return array[elementIndex];
-};
-
-const getRandomArrayLength = (array, minValue) => {
-  const newArray = array.slice();
-  const newArrayLength = getRundomIntNumber(minValue, newArray.length);
-  newArray.length = newArrayLength;
-  return newArray;
-};
+const DEDIMAL_PLACE = 5;
 
 const renderRoom = (num) => {
   let roomValue = 'комната';
@@ -96,7 +72,7 @@ const addToMap = (map, element) => {
   element.addTo(map);
 };
 
-const getAddressCoordinate = (coordinatesObj) => `${coordinatesObj.lat}, ${coordinatesObj.lng}`;
+const getAddressCoordinate = (coordinatesObj) => `${coordinatesObj.lat.toFixed(DEDIMAL_PLACE)}, ${coordinatesObj.lng.toFixed(DEDIMAL_PLACE)}`;
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -119,39 +95,17 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-const resetForm = (form) => {
-  form.reset();
-};
-
-// const resetAddressValue = (addressInput, coordinateObj) => {
-//   const initialAddress = getAddressCoordinate(coordinateObj);
-//   addressInput.value = initialAddress;
-// };
-
 const backMarkerToOriginal = (addressInput, marker, coordinateObj) => {
   marker.setLatLng({
     lat: coordinateObj.lat,
     lng: coordinateObj.lng,
   });
-  // resetAddressValue(addressInput, coordinateObj);
 };
 
-const closeOnClick = (clickElement, closedElement) => {
-  clickElement.addEventListener('click', () => {
-    closedElement.classList.add('hidden');
-  });
-};
-
-const closeOnEsc = (closedElement) => {
-  window.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closedElement.classList.add('hidden');
-    }
-  });
-};
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const removeMarkers = (map, markersGroup) => {
   markersGroup.remove(map);
 };
 
-export { getRundomIntNumber, getRandomFloatNumber, getRandomArrayElement, getRandomArrayLength, renderGuest, renderRoom, addClass, removeClass, addAttributeDisabled, removeAttributeDisabled, addToMap, getAddressCoordinate, showAlert, resetForm, backMarkerToOriginal, closeOnClick, closeOnEsc, removeMarkers};
+export { addClass, removeClass, renderGuest, renderRoom, addAttributeDisabled, removeAttributeDisabled, addToMap, getAddressCoordinate, showAlert, backMarkerToOriginal, isEscapeKey, removeMarkers};

@@ -1,18 +1,16 @@
-import {resetForm, backMarkerToOriginal, addToMap} from './util.js';
+import { backMarkerToOriginal, addToMap} from './util.js';
 import {adForm, address} from './form-validation.js';
 import {tokyoCoordinate} from './map.js';
-import { removeMarkers, mainMarker, createGroupOfMarker} from './markers.js';
+import { removeMarkers, mainMarker, getMarkersGroup} from './markers.js';
 import {getDataAds} from './api.js';
 import {renderMap} from './map-setting.js';
-import { setResetButtom, setSubmitAdForm, bodyElement } from './form-mode.js';
-import { enableSuccessMessage } from './message-mode.js';
+import { resetForm, setResetButtom, setSubmitAdForm } from './form-mode.js';
+import { setSuccessMessage } from './message-mode.js';
 import {filterForm, getFilteredAdsArr} from './filter.js';
 
-const MAX_ADS_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 const mapFilter = document.querySelector('.map__filters');
-const successMessageTemplate = document.querySelector('#success').content;
-const successMessage = successMessageTemplate.querySelector('.success');
 const resetButton = adForm.querySelector('.ad-form__reset');
 
 const resetPage = () => {
@@ -21,13 +19,8 @@ const resetPage = () => {
   backMarkerToOriginal(address, mainMarker, tokyoCoordinate);
 };
 
-const getMarkersGroup = (adsArr) => {
-  const markersGroup = createGroupOfMarker(adsArr.slice(0, MAX_ADS_COUNT));
-  return markersGroup;
-};
-
 const activatePage = () => {
-  const featuresFilterArr = [];
+  const filterFeatures = [];
   const filterData = {};
   const renederedMap = renderMap();
   getDataAds((data) => {
@@ -35,25 +28,22 @@ const activatePage = () => {
     let newMarkersGroup = getMarkersGroup(adsArr);
     addToMap(renederedMap, newMarkersGroup);
 
-    filterForm.addEventListener('change', (evt) => {
-      const newAdsArr = getFilteredAdsArr(filterData, evt, adsArr, featuresFilterArr);
+    filterForm.addEventListener('change', (_.debounce((evt) => {
+      const newAdsArr = getFilteredAdsArr(filterData, evt, adsArr, filterFeatures);
       removeMarkers(renederedMap, newMarkersGroup);
       newMarkersGroup = getMarkersGroup(newAdsArr);
       addToMap(renederedMap, newMarkersGroup);
-    });
+    }, RERENDER_DELAY)));
 
-    filterForm.addEventListener('reset', (evt) => {
-      const newAdsArr = getFilteredAdsArr(filterData, evt, adsArr, featuresFilterArr);
+    filterForm.addEventListener('reset', (_.debounce(() => {
       removeMarkers(renederedMap, newMarkersGroup);
-      newMarkersGroup = getMarkersGroup(newAdsArr);
+      newMarkersGroup = getMarkersGroup(adsArr);
       addToMap(renederedMap, newMarkersGroup);
-    });
-
+    }, RERENDER_DELAY)));
   });
 
   setSubmitAdForm(() => {
-    enableSuccessMessage(successMessage, bodyElement);
-    resetPage();
+    setSuccessMessage();
   });
 
   setResetButtom(resetButton);

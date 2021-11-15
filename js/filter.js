@@ -1,7 +1,3 @@
-// import { addToMap, removeMarkers } from './util.js';
-// import {createGroupOfMarker} from './markers.js';
-
-
 const filterForm = document.querySelector('.map__filters');
 
 const ANY_SELECT = 'any';
@@ -36,27 +32,15 @@ const filterHousingType = (ad, filterData) => {
   return filterValue === ANY_SELECT ? true : ad.offer.type === filterValue;
 };
 
-const getPriceCategory = (priceValue) => {
-  let priceCategory = 'middle';
-
-  if (priceValue < 10000) {
-    priceCategory = 'low';
-  }
-  if (priceValue > 50000) {
-    priceCategory = 'high';
-  }
-  return priceCategory;
-};
-
 const isFeature = (arr, adFeatureValue) => arr.some((feature) => feature === adFeatureValue);
 
-const isEveryFeature = (serverDtafeatures, filterDataFeatures) => {
+const isEveryFeature = (serverDatafeatures, filterDataFeatures) => {
   let truthy = true;
-  if (!serverDtafeatures) {
+  if (!serverDatafeatures) {
     truthy = false;
   } else {
     filterDataFeatures.forEach((filterDataFeature) => {
-      if (!isFeature(serverDtafeatures, filterDataFeature)) {
+      if (!isFeature(serverDatafeatures, filterDataFeature)) {
         truthy = false;
       }
     });
@@ -69,6 +53,18 @@ const filterFeatures = (ad, filterData) => {
   return filterValue.length === 0 ? true : isEveryFeature(ad.offer.features, filterValue);
 };
 
+const getPriceCategory = (priceValue) => {
+  let priceCategory = 'middle';
+
+  if (priceValue < 10000) {
+    priceCategory = 'low';
+  }
+  if (priceValue > 50000) {
+    priceCategory = 'high';
+  }
+  return priceCategory;
+};
+
 function filterHousingPrice(ad, filterData) {
   const filterValue = filterData['housing-price'];
   const priceValue = getPriceCategory(ad.offer.price);
@@ -76,7 +72,7 @@ function filterHousingPrice(ad, filterData) {
 }
 
 const filterdAds = (ads, filterData) => {
-  const filteredAdsArr = [];
+  const filteredAds = [];
   for (const ad of ads) {
     if (
       filterHousingRooms(ad, filterData) &&
@@ -85,15 +81,14 @@ const filterdAds = (ads, filterData) => {
       filterHousingPrice(ad, filterData) &&
       filterFeatures(ad, filterData)
     ) {
-      filteredAdsArr.push(ad);
+      filteredAds.push(ad);
     }
   }
-  return filteredAdsArr;
+  return filteredAds;
 };
 
-const getFilteredAdsArr = (filterDataObj, evt, ads, featuresArr) => {
-  // const featuresArr = [];
-  filterDataObj = getFilterFormData(evt, featuresArr);
+const getFilteredAdsArr = (filterDataObj, evt, ads, features) => {
+  filterDataObj = getFilterFormData(evt, features);
   const filteredData = filterdAds(ads, filterDataObj);
   return filteredData;
 };

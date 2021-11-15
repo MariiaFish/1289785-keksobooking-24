@@ -1,5 +1,4 @@
 import { showAlert } from './util.js';
-// import {adForm} from './form-validation.js';
 
 const getDataAds = (onSuccess) => {
   fetch('https://24.javascript.pages.academy/keksobooking/data')
