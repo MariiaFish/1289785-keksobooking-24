@@ -48,9 +48,6 @@ const removeMarkers = (map, group) => {
   group.remove(map);
 };
 
-const getMarkersGroup = (adsArr) => {
-  const markersGroup = createGroupOfMarker(adsArr.slice(0, MAX_ADS_COUNT));
-  return markersGroup;
-};
+const getMarkersGroup = (adsArr) => createGroupOfMarker(adsArr.slice(0, MAX_ADS_COUNT));
 
 export { mainMarker, removeMarkers, getMarkersGroup };

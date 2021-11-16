@@ -19,6 +19,26 @@ const resetForm = (form) => {
   price.min = INITIAL_PRICE_MIN_VALUE;
 };
 
+const setSubmitAdForm = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => setErrorMessage(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+const setResetButtom = (button) => {
+  button.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetPage();
+  });
+};
+
+
 const addListenersToForm = () => {
 
   roomNumber.addEventListener('change', (evt) => {
@@ -50,25 +70,6 @@ const setInactiveStateForm = (elements) => {
   elements.forEach((element) => {
     addClass(element, 'ad-form--disabled');
     addAttributeDisabled(element);
-  });
-};
-
-const setSubmitAdForm = (onSuccess) => {
-  adForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    sendData(
-      () => onSuccess(),
-      () => setErrorMessage(),
-      new FormData(evt.target),
-    );
-  });
-};
-
-const setResetButtom = (button) => {
-  button.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    resetPage();
   });
 };
 

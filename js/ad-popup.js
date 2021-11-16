@@ -38,6 +38,7 @@ const renderPhotos = (photoArray, photosContainer) => {
   }
 
   const photoElement = photosContainer.querySelector('.popup__photo');
+
   photoElement.src = photoArray[FIRST_ARRAY_ELEMENT_INDEX];
   if (photoArray.length > MIN_PHOTOS_ARRAY_LENGTH) {
     photosContainer.innerHTML = '';
