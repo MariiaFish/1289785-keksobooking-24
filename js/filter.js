@@ -1,6 +1,6 @@
-const filterForm = document.querySelector('.map__filters');
-
 const ANY_SELECT = 'any';
+
+const filterForm = document.querySelector('.map__filters');
 
 const getFilterFormData = (evt, featuresArr) => {
   const data = Object.fromEntries(new FormData(filterForm).entries());

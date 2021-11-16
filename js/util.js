@@ -6,6 +6,7 @@ const MIN_REST = 1;
 const TRIGGER_DIVIDER = 10;
 const ALERT_SHOW_TIME = 6000;
 const DEDIMAL_PLACE = 5;
+const ESC_KEY = 'Escape';
 
 const renderRoom = (num) => {
   let roomValue = 'комната';
@@ -102,7 +103,7 @@ const backMarkerToOriginal = (addressInput, marker, coordinateObj) => {
   });
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === ESC_KEY;
 
 const removeMarkers = (map, markersGroup) => {
   markersGroup.remove(map);
