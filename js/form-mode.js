@@ -1,5 +1,5 @@
-import {removeClass, removeAttributeDisabled, addClass, addAttributeDisabled} from './util.js';
-import { capacity, roomNumber, adForm, validationRoomAndCapacity, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute} from './form-validation.js';
+import { blockElement, unblockElement} from './util.js';
+import { capacity, roomNumber, adForm, initialSetRoomsAndCapacity, setRoomsAndCapacity, type, price, changeMinAndPlaceholder, timeout, timein, setDepencyBySelectedValue} from './form-validation.js';
 import {sendData} from './api.js';
 import {setErrorMessage} from './message-mode.js';
 import {resetPage} from './page-mode.js';
@@ -7,10 +7,6 @@ import {resetPage} from './page-mode.js';
 const INITIAL_CAPACITY_VALUE = 1;
 const INITIAL_PRICE_PLACEHOLDER_VALUE = 1000;
 const INITIAL_PRICE_MIN_VALUE = 1000;
-
-const mapFilters = document.querySelector('.map__filters');
-const mapAdditions = [mapFilters, adForm];
-const bodyElement = document.querySelector('body');
 
 const resetForm = (form) => {
   form.reset();
@@ -38,11 +34,10 @@ const setResetButtom = (button) => {
   });
 };
 
-
 const addListenersToForm = () => {
 
   roomNumber.addEventListener('change', (evt) => {
-    validationRoomAndCapacity(evt);
+    setRoomsAndCapacity(evt);
   });
 
   type.addEventListener('change', (evt) => {
@@ -50,27 +45,24 @@ const addListenersToForm = () => {
   });
 
   timein.addEventListener('change', (evt) => {
-    moveSelectedAttribute(evt, timeout);
+    setDepencyBySelectedValue(evt, timeout);
   });
 
   timeout.addEventListener('change', (evt) => {
-    moveSelectedAttribute(evt, timein);
+    setDepencyBySelectedValue(evt, timein);
   });
 };
 
-const setActiveStateForm = (elements) => {
-  elements.forEach((element) => {
-    removeClass(element, 'ad-form--disabled');
-    removeAttributeDisabled(element);
-  });
+const setActiveStateForm = (form) => {
+  unblockElement(form);
+  initialSetRoomsAndCapacity();
   addListenersToForm();
 };
 
 const setInactiveStateForm = (elements) => {
   elements.forEach((element) => {
-    addClass(element, 'ad-form--disabled');
-    addAttributeDisabled(element);
+    blockElement(element);
   });
 };
 
-export { resetForm, setActiveStateForm, setInactiveStateForm, mapAdditions, setSubmitAdForm, bodyElement, setResetButtom};
+export { resetForm, setActiveStateForm, setInactiveStateForm, setSubmitAdForm, setResetButtom};

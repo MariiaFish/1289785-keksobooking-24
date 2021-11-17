@@ -1,4 +1,4 @@
-import { backMarkerToOriginal, addToMap} from './util.js';
+import { backMarkerToOriginal, addToMap, unblockElement} from './util.js';
 import {adForm, address} from './form-validation.js';
 import {tokyoCoordinate} from './map.js';
 import { removeMarkers, mainMarker, getMarkersGroup} from './markers.js';
@@ -27,6 +27,7 @@ const activatePage = () => {
     const adsArr = data;
     let newMarkersGroup = getMarkersGroup(adsArr);
     addToMap(renederedMap, newMarkersGroup);
+    unblockElement(mapFilter);
 
     filterForm.addEventListener('change', (_.debounce((evt) => {
       const newAdsArr = getFilteredAdsArr(filterData, evt, adsArr, filterFeatures);
@@ -49,4 +50,4 @@ const activatePage = () => {
   setResetButtom(resetButton);
 };
 
-export { resetPage, activatePage};
+export { resetPage, activatePage, mapFilter};

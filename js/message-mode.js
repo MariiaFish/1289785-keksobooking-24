@@ -51,12 +51,12 @@ function closeErrorMessage() {
   window.removeEventListener('click', closeErrorMessageOnClick);
 }
 
-const closeOnEsc = (element, messageType) => {
-  element.addEventListener('keydown', messageType);
+const closeOnEsc = (element, onEscMessageType) => {
+  element.addEventListener('keydown', onEscMessageType);
 };
 
-const closeOnClick = (element, massegeType) =>  {
-  element.addEventListener('click', massegeType);
+const closeOnClick = (element, onClickMessageType) => {
+  element.addEventListener('click', onClickMessageType);
 };
 
 const setSuccessMessage = () => {

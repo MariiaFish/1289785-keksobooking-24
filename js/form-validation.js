@@ -1,4 +1,5 @@
 const NUL_VALUE = 0;
+const INITIAL_ROOMS_VALUE = 1;
 
 const adForm = document.querySelector('.ad-form');
 const roomNumber = adForm.querySelector('#room_number');
@@ -33,7 +34,13 @@ const createOptionCapacity = (valueAttribute, textContent) => {
   return newOption;
 };
 
-const validationRoomAndCapacity = (evt) => {
+const initialSetRoomsAndCapacity = () => {
+  capacity.innerHTML = '';
+  const capacityOption = createOptionCapacity(INITIAL_ROOMS_VALUE, capacityTypes[INITIAL_ROOMS_VALUE]);
+  capacity.appendChild(capacityOption);
+};
+
+const setRoomsAndCapacity = (evt) => {
   capacity.innerHTML = '';
   const selectedValue = getTargetValue(evt);
   const capacityValues = capacityTypes[selectedValue];
@@ -54,15 +61,9 @@ const changeMinAndPlaceholder = (evt, element) => {
   element.placeholder = minFlatPrices[selectedValue];
 };
 
-
-const moveSelectedAttribute = (evt, selectedMovedElement) => {
+const setDepencyBySelectedValue = (evt, dependentElement) => {
   const selectedValue = getTargetValue(evt);
-  const selectedElements = selectedMovedElement.options;
-  for (const selectedElement of selectedElements) {
-    if (selectedElement.value === selectedValue) {
-      selectedElement.selected = true;
-    }
-  }
+  dependentElement.value = selectedValue;
 };
 
-export { roomNumber, capacity, adForm, validationRoomAndCapacity, type, price, changeMinAndPlaceholder, timeout, timein, moveSelectedAttribute, address};
+export { roomNumber, capacity, adForm, setRoomsAndCapacity, initialSetRoomsAndCapacity, type, price, changeMinAndPlaceholder, timeout, timein, setDepencyBySelectedValue, address};
