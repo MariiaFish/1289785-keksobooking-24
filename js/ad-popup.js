@@ -1,4 +1,4 @@
-import {renderGuest, renderRoom} from './util.js';
+import {renderGuest, renderRoom, isZeroArrLength} from './util.js';
 
 const MIN_PHOTOS_ARRAY_LENGTH = 1;
 const FIRST_ARRAY_ELEMENT_INDEX = 0;
@@ -15,9 +15,31 @@ const renderCapasity = (rooms, guests) => `${rooms} ${renderRoom(rooms)} для 
 
 const renderTime = (checkin, checkout) => `Заезд после ${checkin}, выезд до ${checkout}`;
 
-const renderFeature = (featuresList, featuresArr) => {
-  if (!featuresArr) {
-    featuresList.delete;
+
+const renderPhotos = (photosArray, photosContainer) => {
+  if (!photosArray || isZeroArrLength(photosArray)) {
+    photosContainer.classList.add('hidden');
+    return;
+  }
+
+  const photoElement = photosContainer.querySelector('.popup__photo');
+
+  photoElement.src = photosArray[FIRST_ARRAY_ELEMENT_INDEX];
+  if (photosArray.length > MIN_PHOTOS_ARRAY_LENGTH) {
+    photosContainer.innerHTML = '';
+    photosArray.forEach((photo) => {
+      const newPhoto = photoElement.cloneNode(true);
+      newPhoto.src = photo;
+      photosContainer.appendChild(newPhoto);
+    });
+  }
+};
+
+const renderFeatures = (featuresContainer, featuresArr) => {
+  const featuresList = featuresContainer.querySelectorAll('.popup__feature');
+
+  if (!featuresArr || isZeroArrLength(featuresArr)) {
+    featuresContainer.remove();
     return;
   }
 
@@ -31,24 +53,6 @@ const renderFeature = (featuresList, featuresArr) => {
   });
 };
 
-const renderPhotos = (photoArray, photosContainer) => {
-  if (!photoArray) {
-    photosContainer.classList.add('hidden');
-    return;
-  }
-
-  const photoElement = photosContainer.querySelector('.popup__photo');
-
-  photoElement.src = photoArray[FIRST_ARRAY_ELEMENT_INDEX];
-  if (photoArray.length > MIN_PHOTOS_ARRAY_LENGTH) {
-    photosContainer.innerHTML = '';
-    photoArray.forEach((photo) => {
-      const newPhoto = photoElement.cloneNode(true);
-      newPhoto.src = photo;
-      photosContainer.appendChild(newPhoto);
-    });
-  }
-};
 
 const createNewPoup = (dataObj) => {
   const cardTemplate = document.querySelector('#card').content;
@@ -57,7 +61,6 @@ const createNewPoup = (dataObj) => {
 
   const {offer: {features, photos, title, address, price, type, rooms, guests, checkin, checkout, description}, author: {avatar}} = dataObj;
   const featuresContainer = newPopup.querySelector('.popup__features');
-  const featutesList = featuresContainer.querySelectorAll('.popup__feature');
   const photosContainer = newPopup.querySelector('.popup__photos');
   newPopup.querySelector('.popup__title').textContent = title;
   newPopup.querySelector('.popup__text--address').textContent = address;
@@ -67,7 +70,7 @@ const createNewPoup = (dataObj) => {
   newPopup.querySelector('.popup__text--time').textContent = renderTime(checkin, checkout);
   newPopup.querySelector('.popup__description').textContent = description;
   newPopup.querySelector('.popup__avatar').src = avatar;
-  renderFeature(featutesList, features);
+  renderFeatures(featuresContainer, features);
   renderPhotos(photos, photosContainer);
   return newPopup;
 };

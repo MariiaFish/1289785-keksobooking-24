@@ -1,17 +1,23 @@
 import {createNewPoup} from './ad-popup.js';
 
+const MAIN_PIN_ICON_SIZE_PARAMETERS = [52, 52];
+const MAIN_PIN_ICON_ANCHOR_PARAMETERS = [52, 52];
 const MAX_ADS_COUNT = 10;
+const MAIN_PIN_ICON_INITIAL_LAT_COORDINATE = 35.6895;
+const MAIN_PIN_ICON_INITIAL_LNG_COORDINATE = 139.69171;
+const GENERAL_PIN_ICON_SIZE_PARAMETERS = [40, 40];
+const GENERAL_PIN_ICON_ANCHOR_PARAMETERS = [20, 40];
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: MAIN_PIN_ICON_SIZE_PARAMETERS,
+  iconAnchor: MAIN_PIN_ICON_ANCHOR_PARAMETERS,
 });
 
 const mainMarker = L.marker(
   {
-    lat: 35.6895,
-    lng: 139.69171,
+    lat: MAIN_PIN_ICON_INITIAL_LAT_COORDINATE,
+    lng: MAIN_PIN_ICON_INITIAL_LNG_COORDINATE,
   },
   {
     draggable: true,
@@ -25,8 +31,8 @@ const createGroupOfMarker = (points) => {
     const { location: { lat, lng }} = point;
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+      iconSize: GENERAL_PIN_ICON_SIZE_PARAMETERS,
+      iconAnchor: GENERAL_PIN_ICON_ANCHOR_PARAMETERS,
     });
 
     const marker = L.marker({

@@ -7,6 +7,8 @@ const TRIGGER_DIVIDER = 10;
 const ALERT_SHOW_TIME = 6000;
 const DEDIMAL_PLACE = 5;
 const ESC_KEY = 'Escape';
+const ZERO_ARR_LENGTH = 0;
+const DISABLED_FORM_CLASS = 'ad-form--disabled';
 
 const renderRoom = (num) => {
   let roomValue = 'комната';
@@ -55,18 +57,21 @@ const removeClass = (element, className) => {
   element.classList.remove(className);
 };
 
-const addAttributeDisabled = (form) => {
+const changeAttributeDisabledState = (form, attributeDisabledState) => {
   const elementCollection = form.children;
   for (const element of elementCollection) {
-    element.disabled = true;
+    element.disabled = attributeDisabledState;
   }
 };
 
-const removeAttributeDisabled = (form) => {
-  const elementCollection = form.children;
-  for (const element of elementCollection) {
-    element.disabled = false;
-  }
+const blockElement = (element) => {
+  addClass(element, DISABLED_FORM_CLASS);
+  changeAttributeDisabledState(element, true);
+};
+
+const unblockElement = (element) => {
+  removeClass(element, DISABLED_FORM_CLASS);
+  changeAttributeDisabledState(element, false);
 };
 
 const addToMap = (map, element) => {
@@ -109,4 +114,6 @@ const removeMarkers = (map, markersGroup) => {
   markersGroup.remove(map);
 };
 
-export { addClass, removeClass, renderGuest, renderRoom, addAttributeDisabled, removeAttributeDisabled, addToMap, getAddressCoordinate, showAlert, backMarkerToOriginal, isEscapeKey, removeMarkers};
+const isZeroArrLength = (arr) => arr.length === ZERO_ARR_LENGTH;
+
+export { unblockElement, renderGuest, renderRoom, addToMap, getAddressCoordinate, showAlert, backMarkerToOriginal, isEscapeKey, removeMarkers, isZeroArrLength, blockElement};

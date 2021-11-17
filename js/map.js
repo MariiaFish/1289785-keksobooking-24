@@ -1,4 +1,7 @@
-import { setActiveStateForm, mapAdditions } from './form-mode.js';
+import { setActiveStateForm } from './form-mode.js';
+import {adForm} from './form-validation.js';
+
+const INITIAL_MAP_ZOOM_VALUE = 10;
 
 const tokyoCoordinate = {
   lat: 35.6895,
@@ -13,11 +16,11 @@ const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.pn
 const createMap = () => {
   const map = L.map('map-canvas')
     .on('load', () => {
-      setActiveStateForm(mapAdditions);
+      setActiveStateForm(adForm);
     })
     .setView(
       tokyoCoordinate,
-      10);
+      INITIAL_MAP_ZOOM_VALUE);
   return map;
 };
 
