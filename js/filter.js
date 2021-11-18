@@ -8,6 +8,8 @@ const FILTER_DATA_FEATURES_NAME = 'features';
 const MIDDLE_PRICE_CATEGORY_NAME = 'middle';
 const LOW_PRICE_CATEGORY_NAME = 'low';
 const HIGH_PRICE_CATEGORY_NAME = 'high';
+const MAX_LOW_PRICE = 10000;
+const MAX_MIDDLE_PRICE = 50000;
 
 const filterForm = document.querySelector('.map__filters');
 
@@ -65,10 +67,10 @@ const filterFeatures = (ad, filterData) => {
 const getPriceCategory = (priceValue) => {
   let priceCategory = MIDDLE_PRICE_CATEGORY_NAME;
 
-  if (priceValue < 10000) {
+  if (priceValue < MAX_LOW_PRICE) {
     priceCategory = LOW_PRICE_CATEGORY_NAME;
   }
-  if (priceValue > 50000) {
+  if (priceValue > MAX_MIDDLE_PRICE) {
     priceCategory = HIGH_PRICE_CATEGORY_NAME;
   }
   return priceCategory;
