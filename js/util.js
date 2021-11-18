@@ -108,6 +108,8 @@ const backMarkerToOriginal = (addressInput, marker, coordinateObj) => {
   });
 };
 
+const isAllowedFileType = (allowedTypesArr, fileName) => allowedTypesArr.some((allowedType) => fileName.endsWith(allowedType));
+
 const isEscapeKey = (evt) => evt.key === ESC_KEY;
 
 const removeMarkers = (map, markersGroup) => {
@@ -116,4 +118,4 @@ const removeMarkers = (map, markersGroup) => {
 
 const isZeroArrLength = (arr) => arr.length === ZERO_ARR_LENGTH;
 
-export { unblockElement, renderGuest, renderRoom, addToMap, getAddressCoordinate, showAlert, backMarkerToOriginal, isEscapeKey, removeMarkers, isZeroArrLength, blockElement};
+export { unblockElement, renderGuest, renderRoom, addToMap, getAddressCoordinate, showAlert, backMarkerToOriginal, isEscapeKey, removeMarkers, isZeroArrLength, blockElement, isAllowedFileType};
